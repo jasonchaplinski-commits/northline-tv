@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Northline TV</title>
+<style>
+:root { --bg:#0d1520; --card:#141f2c; --line:#26354a; --text:#f1f5fa; --dim:#a9b8ca; --accent:#f2c94c; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; background:linear-gradient(160deg,#1d3550,#0d1520 70%); color:var(--text); font:16px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif; display:flex; justify-content:center; padding:40px 16px; }
+main { width:min(760px,100%); }
+.brand { display:flex; align-items:center; gap:12px; font-size:28px; font-weight:800; }
+.logo { width:40px; height:40px; border-radius:10px; border:4px solid var(--accent); position:relative; flex:none; }
+.logo::after { content:""; position:absolute; left:11px; top:7px; border-left:14px solid var(--accent); border-top:9px solid transparent; border-bottom:9px solid transparent; }
+p.lead { color:var(--dim); margin:10px 0 26px; }
+.main { background:var(--card); border:2px solid var(--accent); border-radius:14px; padding:22px 24px; margin-bottom:18px; }
+.main h2 { margin:0 0 4px; font-size:22px; }
+.btn { display:inline-block; margin-top:14px; padding:13px 22px; border-radius:10px; background:var(--accent); color:#0d1520; font-weight:800; text-decoration:none; }
+.btn:focus-visible, a:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+.card h3 { margin:0 0 6px; font-size:17px; }
+.card a { color:var(--accent); font-weight:700; }
+.small { font-size:14px; color:var(--dim); }
+.steps { margin:10px 0 0; padding-left:20px; color:var(--dim); font-size:14px; }
+code { background:#0d1520; padding:2px 6px; border-radius:6px; color:var(--text); }
+footer { margin-top:26px; font-size:13px; color:var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><span class="logo" aria-hidden="true"></span>Northline TV</div>
+  <p class="lead">Sign in with your own TV service: server, username and password from your provider.</p>
+
+  <section class="main" id="pick" aria-live="polite">
+    <h2 id="pickTitle">Download Northline TV</h2>
+    <div id="pickText" class="small">Pick your device below.</div>
+    <a id="pickBtn" class="btn" href="https://github.com/jasonchaplinski-commits/northline-tv/releases" hidden>Download</a>
+    <ol id="pickSteps" class="steps" hidden></ol>
+  </section>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Windows 10 / 11</h3>
+      <a id="winLink" href="https://github.com/jasonchaplinski-commits/northline-tv/releases">NorthlineTV-Setup.exe</a>
+      <div class="small">If Windows says "Windows protected your PC": More info, then Run anyway.</div>
+    </div>
+    <div class="card">
+      <h3>Mac</h3>
+      <a id="macLink" href="https://github.com/jasonchaplinski-commits/northline-tv/releases">NorthlineTV.dmg</a>
+      <div class="small">Drag it into Applications. First time: right-click it, Open, then Open.</div>
+    </div>
+    <div class="card">
+      <h3>Fire Stick, Android TV, phone</h3>
+      <a href="https://github.com/jasonchaplinski-commits/northline-tv/releases/latest/download/NorthlineTV.apk">NorthlineTV.apk</a>
+      <div class="small">On a Fire Stick, use the Downloader app with your usual code.</div>
+    </div>
+  </div>
+
+  <footer><span id="ver"></span> · <a href="https://github.com/jasonchaplinski-commits/northline-tv/releases" style="color:var(--dim)">All versions</a></footer>
+</main>
+<script>
+(function () {
+  var REL = 'https://github.com/jasonchaplinski-commits/northline-tv/releases';
+  var win = REL, mac = REL, ver = '';
+  function os() {
+    var ua = navigator.userAgent || '';
+    var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    if (/android/i.test(ua) || /AFT/.test(ua)) return 'android';
+    if (/iphone|ipad|ipod/i.test(ua)) return 'ios';
+    if (/win/i.test(plat) || /windows/i.test(ua)) return 'win';
+    if (/mac/i.test(plat) || /macintosh/i.test(ua)) return 'mac';
+    return '';
+  }
+  function show() {
+    var o = os(), t = document.getElementById('pickTitle'), x = document.getElementById('pickText'),
+        b = document.getElementById('pickBtn'), s = document.getElementById('pickSteps');
+    var steps = [];
+    if (o === 'win') { t.textContent = 'Northline TV for Windows'; x.textContent = 'Looks like you are on Windows.'; b.href = win; b.textContent = 'Download for Windows';
+      steps = ['Open NorthlineTV-Setup.exe when it finishes downloading.', 'If Windows says "Windows protected your PC", click More info, then Run anyway.', 'Sign in with your server, username and password.']; }
+    else if (o === 'mac') { t.textContent = 'Northline TV for Mac'; x.textContent = 'Looks like you are on a Mac.'; b.href = mac; b.textContent = 'Download for Mac';
+      steps = ['Open NorthlineTV.dmg and drag Northline TV into Applications.', 'The first time: right-click Northline TV in Applications, choose Open, then Open again.', 'Sign in with your server, username and password.']; }
+    else if (o === 'android') { t.textContent = 'Northline TV for Android'; x.textContent = 'Looks like you are on Android.'; b.href = 'https://github.com/jasonchaplinski-commits/northline-tv/releases/latest/download/NorthlineTV.apk'; b.textContent = 'Download the app';
+      steps = ['Open NorthlineTV.apk when it finishes downloading and allow installing from your browser if asked.']; }
+    else if (o === 'ios') { t.textContent = 'Not on iPhone or iPad yet'; x.textContent = 'Northline TV is for Windows, Mac, Fire Stick and Android.'; }
+    b.hidden = !(o === 'win' || o === 'mac' || o === 'android');
+    s.innerHTML = ''; steps.forEach(function (z) { var li = document.createElement('li'); li.textContent = z; s.appendChild(li); });
+    s.hidden = !steps.length;
+    document.getElementById('winLink').href = win;
+    document.getElementById('macLink').href = mac;
+    document.getElementById('ver').textContent = ver ? 'Windows & Mac version ' + ver : '';
+  }
+  show();
+  // always the newest Windows & Mac version
+  fetch('https://api.github.com/repos/jasonchaplinski-commits/northline-tv/releases?per_page=30').then(function (r) { return r.json(); }).then(function (list) {
+    var d = (list || []).filter(function (x) { return /^desktop-v/.test(x.tag_name || ''); })[0];
+    if (!d) return;
+    ver = d.tag_name.replace('desktop-v', '');
+    (d.assets || []).forEach(function (a) {
+      if (/\.exe$/i.test(a.name)) win = a.browser_download_url;
+      if (/\.dmg$/i.test(a.name)) mac = a.browser_download_url;
+    });
+    show();
+  }).catch(function () {
+    win = REL + '/download/desktop-v1.0.0/NorthlineTV-Setup.exe'; mac = REL + '/download/desktop-v1.0.0/NorthlineTV.dmg'; show();
+  });
+})();
+</script>
+</body>
+</html>
